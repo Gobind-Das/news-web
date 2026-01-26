@@ -58,4 +58,4 @@ htmlcov/
 
 # Production
 /static/
-/media/uploads/
+/media/
