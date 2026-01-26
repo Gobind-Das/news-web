@@ -1,0 +1,6 @@
+Django==4.2.8
+Pillow==10.1.0
+django-tinymce==5.0.0
+python-slugify==8.0.1
+gunicorn==21.2.0
+psycopg2-binary==2.9.9

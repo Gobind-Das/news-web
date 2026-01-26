@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ article.get_meta_title }} - বঙ্গ বিদ্যার্থী{% endblock %}
+{% block description %}{{ article.get_meta_description }}{% endblock %}
+{% block keywords %}{{ article.meta_keywords }}{% endblock %}
+
+{% block content %}
+
+<div class="article-page-wrapper">
+
+    <!-- Article Title -->
+    <h1 class="article-page-title">
+        {{ article.title }}
+    </h1>
+
+    <!-- Author & Date -->
+    <div class="article-page-meta">
+        <span class="author">
+            <i class="fas fa-user"></i>
+            {{ article.author.first_name|default:article.author.username }}
+        </span>
+        <span class="date">
+            <i class="fas fa-calendar"></i>
+            {{ article.published_at|date:"d F, Y" }}
+        </span>
+    </div>
+
+    <!-- Featured Image -->
+    {% if article.featured_image %}
+    <div class="article-page-image">
+        <img src="{{ article.featured_image.url }}" alt="{{ article.title }}">
+    </div>
+    {% endif %}
+
+    <!-- Article Content -->
+    <div class="article-page-content">
+        {{ article.content|safe }}
+    </div>
+
+    {% if related_articles %}
+    <div class="suggested-articles">
+        <h3 class="suggested-title">আরও পড়ুন</h3>
+
+        <div class="suggested-grid">
+            {% for rel in related_articles %}
+            <article class="suggested-card">
+                {% if rel.featured_image %}
+                <a href="{% url 'news:article_detail' rel.slug %}">
+                    <img src="{{ rel.featured_image.url }}" alt="{{ rel.title }}">
+                </a>
+                {% endif %}
+
+                <div class="suggested-body">
+                    <h4>
+                        <a href="{% url 'news:article_detail' rel.slug %}">
+                            {{ rel.title|truncatechars:60 }}
+                        </a>
+                    </h4>
+                    <p class="suggested-date">
+                        {{ rel.published_at|date:"d M, Y" }}
+                    </p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+
+    <!-- Back to Home -->
+    <div class="article-page-back">
+        <a href="{% url 'news:article_list' %}">
+            ← হোম পেজে ফিরে যান
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

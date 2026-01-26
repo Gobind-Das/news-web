@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block meta %}
+    <meta name="description" content="{% block description %}বঙ্গ বিদ্যার্থী{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}খবর, বাংলা, সংবাদ{% endblock %}">
+    <meta name="author" content="Banga Vidyarthi News Portal">
+    {% endblock %}
+
+    <title>{% block title %}বঙ্গ বিদ্যার্থী{% endblock %}</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* Small CSS tweak for logo + title + navbar */
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-links-container {
+            margin-top: 0.5rem;
+        }
+
+        .navbar-links-container .navbar-menu {
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+        }
+
+        /* Ensure hamburger always visible */
+        .hamburger-menu {
+            display: flex !important;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger-menu span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+        }
+
+        .footer-wrap{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-wrap li {
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-wrap li:not(:last-child)::after {
+            content: "|";
+            margin: 0 10px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Header with logo styling */
+        .header-with-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-logo {
+            height: 300px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .footer-section{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content:center;
+            width: 100%;
+        }
+
+        .footer-bottom{
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 10px;
+            align-items: center;
+            justify-content:center;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="navbar-container">
+
+            <!-- Hamburger (always visible) 
+        <div class="hamburger-menu" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>-->
+
+            <!-- Brand / Logo -->
+            <div class="navbar-brand">
+                <img src="{% static 'images/logo.jpeg' %}" alt="বঙ্গ বিদ্যার্থী লোগো" class="logo">
+                <h1>বঙ্গ বিদ্যার্থী</h1>
+            </div>
+
+            <!-- Navigation BELOW logo/title -->
+            <div class="navbar-links-container">
+                <!-- Desktop Menu -->
+                <ul class="navbar-menu">
+                    <li><a href="{% url 'news:article_list' %}" class="nav-link">হোম</a></li>
+                    {% for category in categories %}
+                    <li>
+                        <a href="{% url 'news:article_by_category' category.slug %}" class="nav-link">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <!-- Search -->
+                <form method="get" action="{% url 'news:article_list' %}" class="search-form">
+                    <input type="text" name="q" placeholder="খুঁজুন..." value="{{ search_query }}" class="search-input">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- ================= MOBILE SIDEBAR ================= -->
+    <div class="mobile-sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>মেনু</h2>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'news:article_list' %}">হোম</a></li>
+            {% for category in categories %}
+            <li>
+                <a href="{% url 'news:article_by_category' category.slug %}">
+                    {{ category.name }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+        <div class="footer-content">
+
+            <div class="footer-section">
+                <h3>বঙ্গ বিদ্যার্থী</h3>
+                <p>অখিল ভারতীয় বিদ্যার্থী পরিষদের মুখপত্র</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>দ্রুত লিংক</h4>
+                <ul class="footer-wrap">
+                    {% for category in categories %}
+                    <li>
+                        <a href="{% url 'news:article_by_category' category.slug %}">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>সোশ্যাল মিডিয়া</h4>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/share/1DSAbpNpjE/?mibextid=wwXIfr" target="_blank" rel="noopener">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <!-- <a href="https://twitter.com/YourProfile" target="_blank" rel="noopener">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/YourProfile" target="_blank" rel="noopener">
+                        <i class="fab fa-instagram"></i> -->
+                    </a>
+                    <a href="https://youtube.com/@bangavidyarthipaschimbanga2582?si=suEUPTSp3yFoXKqh" target="_blank" rel="noopener">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 বঙ্গ বিদ্যার্থী । সর্বস্বত্ব সংরক্ষিত।</p>
+            <img src="{% static 'images/logo.jpeg' %}" alt="বঙ্গ বিদ্যার্থী লোগো" class="logo">
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+
+</html>
