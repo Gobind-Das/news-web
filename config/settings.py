@@ -55,7 +55,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 if config('DATABASE_URL', default='').strip():
     import dj_database_url
     DATABASES = {
-        'default': dj_database_url.config(default=config('DATABASE_URL'), conn_max_age=600)
+        'default': dj_database_url.config(
+            default=config('DATABASE_URL'), 
+            conn_max_age=600,
+            ssl_require=True
+        )
     }
 else:
     DATABASES = {
