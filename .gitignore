@@ -58,4 +58,5 @@ htmlcov/
 
 # Production
 /static/
-/media/
+/media/.env
+.env.local
