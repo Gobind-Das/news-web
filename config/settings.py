@@ -133,3 +133,10 @@ LOGGING = {
         'level': 'INFO',
     },
 }
+
+# Use WhiteNoise to serve static files
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
