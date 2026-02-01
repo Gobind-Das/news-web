@@ -17,6 +17,11 @@ pip install -r requirements.txt
 echo "✅ ডাটাবেস মাইগ্রেট করছি..."
 python manage.py migrate
 
+# Run collectstatic
+echo "Collecting static assets"
+python manage.py collectstatic --noinput
+
+
 # Create superuser
 echo "✅ সুপারইউজার তৈরি করছি..."
 echo "নিম্নলিখিত তথ্য সরবরাহ করুন:"
