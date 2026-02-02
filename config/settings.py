@@ -10,6 +10,8 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
 
+CSRF_TRUSTED_ORIGINS = ['http://147.93.28.89']
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -23,7 +25,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -52,22 +53,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-if config('DATABASE_URL', default='').strip():
-    import dj_database_url
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=config('DATABASE_URL'), 
-            conn_max_age=600,
-            ssl_require=True
-        )
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DATABASE_NAME'),          # The name of your database
+        'USER': config('DATABASE_USER'),          # The PostgreSQL username
+        'PASSWORD': config('DATABASE_PASSWORD'),  # The user's password
+        'HOST': config('DATABASE_HOST'),             # Or the hostname/IP of your database server (e.g., '127.0.0.1' for local)
+        'PORT': config('DATABASE_PORT'),                  # The port your PostgreSQL server is listening on (default is 5432)
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -102,8 +98,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Security settings for production
+SECURE_SSL_REDIRECT = False
 if not DEBUG:
-    SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
@@ -138,13 +134,5 @@ LOGGING = {
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
-        "OPTIONS": {
-            "additional_locations": {
-                "/media/": MEDIA_ROOT,
-            },
-        },
     },
 }
