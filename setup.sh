@@ -24,8 +24,7 @@ python manage.py collectstatic --noinput
 
 # Create superuser
 echo "✅ সুপারইউজার তৈরি করছি..."
-echo "নিম্নলিখিত তথ্য সরবরাহ করুন:"
-python manage.py createsuperuser
+python manage.py create_superuser
 
 # Create initial categories
 echo "✅ প্রাথমিক বিভাগ তৈরি করছি..."
