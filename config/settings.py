@@ -100,8 +100,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Security settings for production
 SECURE_SSL_REDIRECT = False
 if not DEBUG:
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_SECURITY_POLICY = {
         'default-src': ("'self'",),
