@@ -31,8 +31,16 @@ class Command(BaseCommand):
             return
 
         if User.objects.filter(username=username).exists():
+            user = User.objects.get(username=username)
+            user.set_password(password)
+            user.is_superuser = True
+            user.is_staff = True
+            user.save()
             self.stdout.write(
-                self.style.WARNING(f'⚠️ Superuser "{username}" already exists!')
+                self.style.SUCCESS(
+                    f'✅ Successfully updated password for existing superuser: {username}\n'
+                    f'📝 You can now login with the new password from environment variables.'
+                )
             )
             return
 

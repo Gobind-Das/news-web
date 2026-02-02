@@ -141,5 +141,10 @@ STORAGES = {
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        "OPTIONS": {
+            "additional_locations": {
+                "/media/": MEDIA_ROOT,
+            },
+        },
     },
 }
