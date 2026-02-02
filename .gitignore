@@ -58,5 +58,7 @@ htmlcov/
 # Production
 # `static/` is tracked in the repo so CSS/JS/images are deployed from source
 # (static build output `staticfiles/` is not ignored here)
-/media/.env
-.env.local
+# Media and static files
+media/
+staticfiles/
+source/
