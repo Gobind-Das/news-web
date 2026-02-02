@@ -17,7 +17,15 @@
         <div class="header-with-logo">
             <img src="{% static 'images/logo1.jpeg' %}" alt="বঙ্গ বিদ্যার্থী লোগো" class="header-logo">
         </div>
-        <p class="category-description">সপশ্চিমবঙ্গের জাতীয়তাবাদী ছাত্র সংগঠন অখিল ভারতীয় বিদ্যার্থী পরিষদের মুখপত্র 'বঙ্গ বিদ্যার্থী'। এই পত্রিকা একটি মাসিক বাংলা পত্রিকা। ভারতরাষ্ট্রকে পুনঃনির্মাণ করতে দৃঢ় সংকল্পবদ্ধ হয়ে ১৯৪৯ সাল থেকে কাজ করে আসছে এবিভিপি। সামাজিক দায়িত্বশীল ছাত্র সংগঠন হিসেবে শিক্ষা বিষয়ক নানা দাবি দাওয়াকে সামনে রেখে ছাত্র অধিকার রক্ষায় কাজ করে এবিভিপি। ছাত্র জীবনে দেশমাতৃকার বন্দনা এবং রাষ্ট্র ভক্তিই মূল আদর্শ। শিক্ষা হবে দেশের প্রত্যেক নাগরিকের জন্য। শিক্ষা হবে আনন্দময় স্বার্থক জীবন। শিক্ষার যোগ্যতায় মিলবে কাজ। নব্বইয়ের দশক থেকে বঙ্গ বিদ্যার্থী পত্রিকা পশ্চিমবঙ্গে প্রকাশ হচ্ছে। এবার থেকে এই পত্রিকা ডিজিটাল মাধ্যমে প্রকাশিত হবে। সমৃদ্ধ ভারতের সঙ্গে সমৃদ্ধ পশ্চিমবঙ্গ একান্ত প্রয়োজন। পশ্চিমবঙ্গকে উজ্জ্বল ভবিষ্যতের দিকে নিয়ে যাওয়াই আমাদের প্রধান সংকল্প।ইতিহাস, সাহিত্য, ধর্ম, দর্শন, অধ্যাত্মবাদে পশ্চিমবঙ্গে যথার্থ ভারতকে অন্বেষণ করাই আমাদের প্রধান কাজ।</p>
+        <p class="category-description">পশ্চিমবঙ্গের জাতীয়তাবাদী ছাত্র সংগঠন অখিল ভারতীয় বিদ্যার্থী পরিষদের মুখপত্র
+            'বঙ্গ বিদ্যার্থী'। এই পত্রিকা একটি মাসিক বাংলা পত্রিকা। ভারতরাষ্ট্রকে পুনঃনির্মাণ করতে দৃঢ় সংকল্পবদ্ধ হয়ে
+            ১৯৪৯ সাল থেকে কাজ করে আসছে এবিভিপি। সামাজিক দায়িত্বশীল ছাত্র সংগঠন হিসেবে শিক্ষা বিষয়ক নানা দাবি দাওয়াকে
+            সামনে রেখে ছাত্র অধিকার রক্ষায় কাজ করে এবিভিপি। ছাত্র জীবনে দেশমাতৃকার বন্দনা এবং রাষ্ট্র ভক্তিই মূল আদর্শ।
+            শিক্ষা হবে দেশের প্রত্যেক নাগরিকের জন্য। শিক্ষা হবে আনন্দময় স্বার্থক জীবন। শিক্ষার যোগ্যতায় মিলবে কাজ।
+            নব্বইয়ের দশক থেকে বঙ্গ বিদ্যার্থী পত্রিকা পশ্চিমবঙ্গে প্রকাশ হচ্ছে। এবার থেকে এই পত্রিকা ডিজিটাল মাধ্যমে
+            প্রকাশিত হবে। সমৃদ্ধ ভারতের সঙ্গে সমৃদ্ধ পশ্চিমবঙ্গ একান্ত প্রয়োজন। পশ্চিমবঙ্গকে উজ্জ্বল ভবিষ্যতের দিকে
+            নিয়ে যাওয়াই আমাদের প্রধান সংকল্প।ইতিহাস, সাহিত্য, ধর্ম, দর্শন, অধ্যাত্মবাদে পশ্চিমবঙ্গে যথার্থ ভারতকে
+            অন্বেষণ করাই আমাদের প্রধান কাজ।</p>
     </div>
     {% endif %}
 
@@ -76,21 +84,24 @@
     <div class="pagination">
         {% if page_obj.has_previous %}
         <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}" class="page-link first">প্রথম</a>
-        <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}" class="page-link prev">পূর্ববর্তী</a>
+        <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}"
+            class="page-link prev">পূর্ববর্তী</a>
         {% endif %}
 
         {% for num in page_obj.paginator.page_range %}
         {% if page_obj.number == num %}
         <span class="page-link current">{{ num }}</span>
-        {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
-        <a href="?page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}" class="page-link">{{ num }}</a>
-        {% endif %}
-        {% endfor %}
+        {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %} <a
+            href="?page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}" class="page-link">{{ num }}</a>
+            {% endif %}
+            {% endfor %}
 
-        {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}" class="page-link next">পরবর্তী</a>
-        <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}" class="page-link last">শেষ</a>
-        {% endif %}
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                class="page-link next">পরবর্তী</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                class="page-link last">শেষ</a>
+            {% endif %}
     </div>
     {% endif %}
 
