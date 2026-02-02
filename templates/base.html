@@ -83,9 +83,16 @@
         }
 
         .header-logo {
-            height: 300px;
+            height: 120px;
+            max-width: 100%;
             width: auto;
             object-fit: contain;
+        }
+
+        @media (min-width: 992px) {
+            .header-logo {
+                height: 300px;
+            }
         }
 
         .footer-section{
@@ -114,12 +121,12 @@
     <nav class="navbar">
         <div class="navbar-container">
 
-            <!-- Hamburger (always visible) 
-        <div class="hamburger-menu" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>-->
+            <!-- Hamburger (always visible) -->
+            <div class="hamburger-menu" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
 
             <!-- Brand / Logo -->
             <div class="navbar-brand">
@@ -227,6 +234,7 @@
         </div>
     </footer>
 
+    <script src="{% static 'js/main.js' %}"></script>
     {% block extra_js %}{% endblock %}
 
 </body>
